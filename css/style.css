@@ -1,8 +1,16 @@
-/* リセットとベーススタイル */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    background: var(--white);
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.header.hide {
+    transform: translateY(-100%);
 }
 
 :root {
