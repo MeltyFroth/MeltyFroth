@@ -243,5 +243,38 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScrollY = current;
     });
 
+    // ハンバーガーメニューの制御
+    const hamburger = document.querySelector('.hamburger-menu');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // メニュー内のリンクをクリックしたら閉じる
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+    }
+
+    // スマホでのドロップダウンメニュー制御（タップで開閉）
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault(); // リンク遷移を無効化
+                    dropdown.classList.toggle('active');
+                }
+            });
+        }
+    });
+
     console.log('MeltyFroth サイトが読み込まれました！');
 });
