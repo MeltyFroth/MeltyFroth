@@ -1,209 +1,193 @@
-<!DOCTYPE html>
-<html lang="ja">
+min-height: 100vh;
+}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特別営業 - MeltyFroth</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        .special-events-section {
-            padding: 80px 20px;
-            background: #FFF5F8;
-            min-height: 100vh;
-        }
+.event-cards-container {
+max-width: 1300px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: 40px;
+margin-top: 50px;
+}
 
-        .event-cards-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-            margin-top: 50px;
-        }
+.event-card {
+background: white;
+border-radius: 20px;
+overflow: hidden;
+box-shadow: 0 5px 20px rgba(233, 149, 165, 0.2);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-        .event-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(233, 149, 165, 0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.event-card:hover {
+transform: translateY(-10px);
+box-shadow: 0 10px 30px rgba(233, 149, 165, 0.3);
+}
 
-        .event-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(233, 149, 165, 0.3);
-        }
+.event-card-image {
+width: 100%;
+height: 350px;
+object-fit: cover;
+}
 
-        .event-card-image {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-        }
+.event-card-content {
+padding: 30px;
+}
 
-        .event-card-content {
-            padding: 30px;
-        }
+.event-date {
+color: #E995A5;
+font-size: 14px;
+font-weight: 500;
+margin-bottom: 10px;
+}
 
-        .event-date {
-            color: #E995A5;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
+.event-title {
+font-size: 28px;
+color: #E995A5;
+margin-bottom: 15px;
+font-weight: 700;
+}
 
-        .event-title {
-            font-size: 28px;
-            color: #E995A5;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
+.event-message {
+color: #666;
+line-height: 1.8;
+font-size: 16px;
+}
 
-        .event-message {
-            color: #666;
-            line-height: 1.8;
-            font-size: 16px;
-        }
+.event-card {
+cursor: pointer;
+}
 
-        .event-card {
-            cursor: pointer;
-        }
+/* モーダルスタイル */
+.modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.8);
+z-index: 1000;
+align-items: center;
+justify-content: center;
+padding: 20px;
+}
 
-        /* モーダルスタイル */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+.modal.active {
+display: flex;
+}
 
-        .modal.active {
-            display: flex;
-        }
+.modal-content {
+background: white;
+border-radius: 20px;
+max-width: 900px;
+width: 100%;
+max-height: 90vh;
+overflow-y: auto;
+position: relative;
+}
 
-        .modal-content {
-            background: white;
-            border-radius: 20px;
-            max-width: 900px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
+.modal-close {
+position: absolute;
+top: 20px;
+right: 20px;
+background: #E995A5;
+color: white;
+border: none;
+width: 40px;
+height: 40px;
+border-radius: 50%;
+font-size: 24px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: transform 0.3s ease;
+z-index: 10;
+}
 
-        .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: #E995A5;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
-            z-index: 10;
-        }
+.modal-close:hover {
+transform: scale(1.1);
+}
 
-        .modal-close:hover {
-            transform: scale(1.1);
-        }
+.modal-gallery {
+width: 100%;
+height: 500px;
+position: relative;
+overflow: hidden;
+border-radius: 20px 20px 0 0;
+background: #f5f5f5;
+display: flex;
+align-items: center;
+justify-content: center;
+}
 
-        .modal-gallery {
-            width: 100%;
-            height: 500px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 20px 20px 0 0;
-            background: #f5f5f5;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.modal-gallery img {
+width: 100%;
+height: 100%;
+object-fit: contain;
+display: none;
+}
 
-        .modal-gallery img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: none;
-        }
+.modal-gallery img.active {
+display: block;
+}
 
-        .modal-gallery img.active {
-            display: block;
-        }
+.gallery-nav {
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+background: rgba(233, 149, 165, 0.8);
+color: white;
+border: none;
+width: 50px;
+height: 50px;
+border-radius: 50%;
+font-size: 24px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+}
 
-        .gallery-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(233, 149, 165, 0.8);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.gallery-nav.prev {
+left: 20px;
+}
 
-        .gallery-nav.prev {
-            left: 20px;
-        }
+.gallery-nav.next {
+right: 20px;
+}
 
-        .gallery-nav.next {
-            right: 20px;
-        }
+.modal-body {
+padding: 40px;
+}
 
-        .modal-body {
-            padding: 40px;
-        }
+.modal-date {
+color: #E995A5;
+font-size: 16px;
+font-weight: 500;
+margin-bottom: 15px;
+}
 
-        .modal-date {
-            color: #E995A5;
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
+.modal-title {
+font-size: 36px;
+color: #E995A5;
+margin-bottom: 20px;
+font-weight: 700;
+}
 
-        .modal-title {
-            font-size: 36px;
-            color: #E995A5;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
+.modal-message {
+color: #666;
+line-height: 2;
+font-size: 18px;
+}
 
-        .modal-message {
-            color: #666;
-            line-height: 2;
-            font-size: 18px;
-        }
-
-        @media (max-width: 768px) {
-            .event-cards-container {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-            }
-        }
-    </style>
+@media (max-width: 768px) {
+.event-cards-container {
+grid-template-columns: 1fr;
+max-width: 400px;
+}
+}
+</style>
 </head>
 
 <body>
