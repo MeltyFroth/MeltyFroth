@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2期生 - MeltyFroth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- BGMコントローラー -->
+    <div class="bgm-controller">
+        <button id="bgm-toggle" class="bgm-button">
+            <span id="bgm-icon">🎵</span>
+        </button>
+        <input type="range" id="volume-slider" min="0" max="100" value="2" class="volume-slider">
+    </div>
+
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="images/sections/header.png" alt="MeltyFroth" style="height: 28px; width: auto;">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">ホーム</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">キャスト一覧</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cast-1.html">1期生</a></li>
+                        <li><a href="cast-2.html">2期生</a></li>
+                        <li><a href="cast-3.html">3期生</a></li>
+                        <li><a href="cast-4.html">4期生</a></li>
+                        <li><a href="cast-5.html">5期生</a></li>
+                    </ul>
+                </li>
+                <li><a href="event.html">イベント詳細</a></li>
+                <li><a href="special-events.html">特別営業</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- キャスト一覧 -->
+    <section class="cast-gallery" style="background: url('images/sections/期生背景.jpg') center/cover no-repeat; background-attachment: fixed;">
+        <div class="container">
+            <h1 class="page-title" style="color: white; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">～キャスト紹介～</h1>
+            <h2 style="text-align: center; color: white; font-size: 36px; margin-bottom: 40px; text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);">2期生</h2>
+
+            <div class="cast-image-grid" style="grid-template-columns: repeat(4, 1fr);">
+                <a href="fairy.html" class="cast-image-link">
+                    <img src="images/cast/2-ふぇありー.png" alt="ふぇありー" class="cast-image-item">
+                </a>
+                <a href="tococo.html" class="cast-image-link">
+                    <img src="images/cast/2-とここ.png" alt="とここ" class="cast-image-item">
+                </a>
+                <a href="annin.html" class="cast-image-link">
+                    <img src="images/cast/2-あんにん.png" alt="あんにん" class="cast-image-item">
+                </a>
+                <a href="ham.html" class="cast-image-link">
+                    <img src="images/cast/2-はむ.png" alt="はむ" class="cast-image-item">
+                </a>
+                <a href="zikaumu.html" class="cast-image-link">
+                    <img src="images/cast/2-じかうむ.png" alt="じかうむ" class="cast-image-item">
+                </a>
+                <a href="uraboss.html" class="cast-image-link">
+                    <img src="images/cast/2-うらぼす.png" alt="うらぼす" class="cast-image-item">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 MeltyFroth. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

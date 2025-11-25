@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特別営業 - MeltyFroth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .special-events-section {
+            padding: 80px 20px;
+            background: #FFF5F8;
+            min-height: 100vh;
+        }
+
+        .event-cards-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(233, 149, 165, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(233, 149, 165, 0.3);
+        }
+
+        .event-card-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .event-card-content {
+            padding: 30px;
+        }
+
+        .event-date {
+            color: #E995A5;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .event-title {
+            font-size: 28px;
+            color: #E995A5;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .event-message {
+            color: #666;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .event-card {
+            cursor: pointer;
+        }
+
+        /* モーダルスタイル */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #E995A5;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-gallery {
+            width: 100%;
+            height: 500px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+
+        .modal-gallery img.active {
+            display: block;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(233, 149, 165, 0.8);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-nav.prev {
+            left: 20px;
+        }
+
+        .gallery-nav.next {
+            right: 20px;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        .modal-date {
+            color: #E995A5;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 36px;
+            color: #E995A5;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .modal-message {
+            color: #666;
+            line-height: 2;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .event-cards-container {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- BGMコントローラー -->
+    <div class="bgm-controller">
+        <button id="bgm-toggle" class="bgm-button">
+            <span id="bgm-icon">🎵</span>
+        </button>
+        <input type="range" id="volume-slider" min="0" max="100" value="2" class="volume-slider">
+    </div>
+
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="images/sections/header.png" alt="MeltyFroth"
+                    style="height: 35px; width: auto; display: block;">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">ホーム</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">キャスト一覧</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cast-1.html">1期生</a></li>
+                        <li><a href="cast-2.html">2期生</a></li>
+                        <li><a href="cast-3.html">3期生</a></li>
+                        <li><a href="cast-4.html">4期生</a></li>
+                        <li><a href="cast-5.html">5期生</a></li>
+                    </ul>
+                </li>
+                <li><a href="event.html">イベント詳細</a></li>
+                <li><a href="special-events.html">特別営業</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 特別営業セクション -->
+    <section class="special-events-section">
+        <div class="container">
+            <h1 class="page-title" style="color: #E995A5;">～特別営業～</h1>
+
+            <div class="event-cards-container">
+                <!-- イベントカード: Vketラウンジプレオープン営業 -->
+                <div class="event-card" onclick="openModal('vketlounge')">
+                    <img src="images/gallery/special/2025.11.15cast.png" alt="Vketラウンジプレオープン営業"
+                        class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年11月15日</p>
+                        <h2 class="event-title">Vketラウンジプレオープン営業</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: 青春電脳文化祭 -->
+                <div class="event-card" onclick="openModal('bunkasai')">
+                    <img src="images/gallery/special/青春電脳文化祭 (1).png" alt="青春電脳文化祭" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年11月8日-9日</p>
+                        <h2 class="event-title">青春電脳文化祭</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: メロコトンコラボ営業 -->
+                <div class="event-card" onclick="openModal('merokoton')">
+                    <img src="images/gallery/special/メロコトン.jpg" alt="メロコトンコラボ営業" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年9月29日</p>
+                        <h2 class="event-title">メロコトンコラボ営業</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: 寝転ん盆踊り -->
+                <div class="event-card" onclick="openModal('bonodori')">
+                    <img src="images/gallery/special/2025.8.9 寝転ん盆踊り (1).png" alt="寝転ん盆踊り" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年8月9日</p>
+                        <h2 class="event-title">寝転ん盆踊り</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: 1.5anniversary -->
+                <div class="event-card" onclick="openModal('1.5anniversary')">
+                    <img src="images/gallery/special/1.5anniversary (1).png" alt="1.5anniversary"
+                        class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年7月19日</p>
+                        <h2 class="event-title">1.5anniversary</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: SilverSpaceコラボ営業 -->
+                <div class="event-card" onclick="openModal('silverspace')">
+                    <img src="images/gallery/special/SilverSpace 1.png" alt="SilverSpaceコラボ営業" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年3月22日</p>
+                        <h2 class="event-title">SilverSpaceコラボ営業</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: 1st anniversary -->
+                <div class="event-card" onclick="openModal('1stanniversary')">
+                    <img src="images/gallery/special/1stanniversary.png" alt="1st anniversary" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年1月18日</p>
+                        <h2 class="event-title">1st anniversary</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: ハロウィン特別営業 -->
+                <div class="event-card" onclick="openModal('halloween')">
+                    <img src="images/gallery/special/2024Halloween.png" alt="ハロウィン特別営業" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2024年10月19日</p>
+                        <h2 class="event-title">ハロウィン特別営業</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: halfanniversary -->
+                <div class="event-card" onclick="openModal('halfanniversary')">
+                    <img src="images/gallery/special/halfanniversary (3).png" alt="halfanniversary"
+                        class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2024年7月21日</p>
+                        <h2 class="event-title">halfanniversary</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: ふりふ夏の浴衣祭り -->
+                <div class="event-card" onclick="openModal('hurihu')">
+                    <img src="images/gallery/special/hurihu2024.png" alt="ふりふ夏の浴衣祭り" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2024年7月17日</p>
+                        <h2 class="event-title">ふりふ夏の浴衣祭り</h2>
+                    </div>
+                </div>
+
+                <!-- イベントカード: AnotherForest -->
+                <div class="event-card" onclick="openModal('anotherforest')">
+                    <img src="images/gallery/special/AnotherForest.png" alt="AnotherForest" class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2024年4月6日</p>
+                        <h2 class="event-title">AnotherForest</h2>
+                    </div>
+                </div>
+
+                <!-- ここに他のイベントカードを追加 -->
+
+            </div>
+        </div>
+    </section>
+
+    <!-- モーダル: 寝転ん盆踊り -->
+    <div id="modal-bonodori" class="modal" onclick="closeModal('bonodori')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('bonodori')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/2025.8.9 寝転ん盆踊り (1).png" alt="寝転ん盆踊り" class="active">
+                <img src="images/gallery/special/2025.8.9 寝転ん盆踊り (2).png" alt="寝転ん盆踊り">
+                <img src="images/gallery/special/2025.8.9 寝転ん盆踊り (3).png" alt="寝転ん盆踊り">
+                <button class="gallery-nav prev" onclick="changeImage('bonodori', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('bonodori', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年8月9日</p>
+                <h2 class="modal-title">寝転ん盆踊り</h2>
+                <p class="modal-message">待望の寝転ん盆踊りに参加<br>たくさんの来客があり、賑やかで思い出に残る一夜となりました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: 1.5anniversary -->
+    <div id="modal-1.5anniversary" class="modal" onclick="closeModal('1.5anniversary')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('1.5anniversary')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/1.5anniversary (1).png" alt="1.5anniversary" class="active">
+                <img src="images/gallery/special/1.5anniversary (2).png" alt="1.5anniversary">
+                <img src="images/gallery/special/1.5anniversary (3).png" alt="1.5anniversary">
+                <button class="gallery-nav prev" onclick="changeImage('1.5anniversary', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('1.5anniversary', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年7月19日</p>
+                <h2 class="modal-title">1.5anniversary</h2>
+                <p class="modal-message">いつものお店を飛び出して夏のデート営業<br>1年半記念として、特別な場所で素敵な時間を過ごしました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: 1st anniversary -->
+    <div id="modal-1stanniversary" class="modal" onclick="closeModal('1stanniversary')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('1stanniversary')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/1stanniversary.png" alt="1st anniversary" class="active">
+                <img src="images/gallery/special/1stanniversary (2).png" alt="1st anniversary">
+                <img src="images/gallery/special/1stanniversary (3).png" alt="1st anniversary">
+                <button class="gallery-nav prev" onclick="changeImage('1stanniversary', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('1stanniversary', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年1月18日</p>
+                <h2 class="modal-title">1st anniversary</h2>
+                <p class="modal-message">1周年を迎えためるふろのデート営業<br>たくさんの思い出と共に、記念すべき1年目を皆様と一緒に祝いました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: ハロウィン特別営業 -->
+    <div id="modal-halloween" class="modal" onclick="closeModal('halloween')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('halloween')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/2024Halloween.png" alt="ハロウィン特別営業" class="active">
+                <button class="gallery-nav prev" onclick="changeImage('halloween', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('halloween', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2024年10月19日</p>
+                <h2 class="modal-title">ハロウィン特別営業</h2>
+                <p class="modal-message">普段とは違うワールドで、ハロウィン仕様の特別な装いでの営業を行いました<br>非日常的な雰囲気の中、特別なハロウィンナイトとなりました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: halfanniversary -->
+    <div id="modal-halfanniversary" class="modal" onclick="closeModal('halfanniversary')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('halfanniversary')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/halfanniversary (3).png" alt="halfanniversary" class="active">
+                <img src="images/gallery/special/halfanniversary.png" alt="halfanniversary">
+                <img src="images/gallery/special/halfanniversary (2).png" alt="halfanniversary">
+                <button class="gallery-nav prev" onclick="changeImage('halfanniversary', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('halfanniversary', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2024年7月21日</p>
+                <h2 class="modal-title">halfanniversary</h2>
+                <p class="modal-message">めるふろ営業開始から半年の特別デート企画<br>ぽこぴーランドでの特別なデートを満喫しました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: ふりふ夏の浴衣祭り -->
+    <div id="modal-hurihu" class="modal" onclick="closeModal('hurihu')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('hurihu')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/hurihu2024.png" alt="ふりふ夏の浴衣祭り" class="active">
+                <img src="images/gallery/special/hurihu2024 (2).png" alt="ふりふ夏の浴衣祭り">
+                <img src="images/gallery/special/hurihu2024(3).png" alt="ふりふ夏の浴衣祭り">
+                <button class="gallery-nav prev" onclick="changeImage('hurihu', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('hurihu', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2024年7月17日</p>
+                <h2 class="modal-title">ふりふ夏の浴衣祭り</h2>
+                <p class="modal-message">BLUESTELLA主催のイベントに参加させていただきました<br>専用浴衣テクスチャを作成していただき、夏らしい浴衣姿で華やかなひと時となりました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: AnotherForest -->
+    <div id="modal-anotherforest" class="modal" onclick="closeModal('anotherforest')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('anotherforest')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/AnotherForest.png" alt="AnotherForest" class="active">
+                <img src="images/gallery/special/AnotherForest (2).png" alt="AnotherForest">
+                <button class="gallery-nav prev" onclick="changeImage('anotherforest', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('anotherforest', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2024年4月6日</p>
+                <h2 class="modal-title">AnotherForest</h2>
+                <p class="modal-message">エイプリルフール企画で出していた男装企画　AnotherForestを行いました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: SilverSpaceコラボ営業 -->
+    <div id="modal-silverspace" class="modal" onclick="closeModal('silverspace')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('silverspace')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/SilverSpace 1.png" alt="SilverSpaceコラボ営業" class="active">
+                <img src="images/gallery/special/SilverSpace.png" alt="SilverSpaceコラボ営業">
+                <button class="gallery-nav prev" onclick="changeImage('silverspace', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('silverspace', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年3月22日</p>
+                <h2 class="modal-title">SilverSpaceコラボ営業</h2>
+                <p class="modal-message">ArtemisSailor-grace-を全員お揃いで着用して接客した特別な営業<br>統一感のある装いで、いつもとは違う雰囲気をお楽しみいただきました
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: 青春電脳文化祭 -->
+    <div id="modal-bunkasai" class="modal" onclick="closeModal('bunkasai')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('bunkasai')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/青春電脳文化祭 (1).png" alt="青春電脳文化祭" class="active">
+                <img src="images/gallery/special/青春電脳文化祭 (2).png" alt="青春電脳文化祭">
+                <button class="gallery-nav prev" onclick="changeImage('bunkasai', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('bunkasai', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年11月8日-9日</p>
+                <h2 class="modal-title">青春電脳文化祭</h2>
+                <p class="modal-message">
+                    2日間にわたって開催された青春電脳文化祭に参加<br>学校の雰囲気に合わせて、全員でArtemisSailor-grace-を着用して接客<br>たくさんの人が遊びに来てくれて、賑やかで楽しい文化祭となりました
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: Vketラウンジプレオープン営業 -->
+    <div id="modal-vketlounge" class="modal" onclick="closeModal('vketlounge')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('vketlounge')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/2025.11.15cast.png" alt="Vketラウンジプレオープン営業" class="active">
+                <img src="images/gallery/special/2025.11.15 all.png" alt="Vketラウンジプレオープン営業">
+                <button class="gallery-nav prev" onclick="changeImage('vketlounge', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('vketlounge', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年11月15日</p>
+                <h2 class="modal-title">Vketラウンジプレオープン営業</h2>
+                <p class="modal-message">
+                    パラリアル新宿ワールドをお借りして、Vketラウンジのプレオープン営業を行いました<br>都会的な雰囲気の中、新しい形態のイベントを開催<br>特別な空間での営業を楽しんでいただきました</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: メロコトンコラボ営業 -->
+    <div id="modal-merokoton" class="modal" onclick="closeModal('merokoton')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('merokoton')">×</button>
+
+            <div class="modal-gallery">
+                <img src="images/gallery/special/メロコトン.jpg" alt="メロコトンコラボ営業" class="active">
+                <button class="gallery-nav prev" onclick="changeImage('merokoton', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('merokoton', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年9月29日</p>
+                <h2 class="modal-title">メロコトンコラボ営業</h2>
+                <p class="modal-message">
+                    メロコトン側のワールドにお邪魔して、みんなでパジャマパーティーを開催<br>普段とは違う場所で、リラックスした雰囲気の中、コラボならではの特別な交流を楽しみました<br>パジャマ姿でのんびりとした時間を過ごし、思い出に残る一夜となりました
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentImageIndex = {};
+
+        function openModal(eventId) {
+            document.getElementById('modal-' + eventId).classList.add('active');
+            currentImageIndex[eventId] = 0;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(eventId) {
+            document.getElementById('modal-' + eventId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(eventId, direction) {
+            const modal = document.getElementById('modal-' + eventId);
+            const images = modal.querySelectorAll('.modal-gallery img');
+
+            images[currentImageIndex[eventId]].classList.remove('active');
+
+            currentImageIndex[eventId] += direction;
+            if (currentImageIndex[eventId] < 0) {
+                currentImageIndex[eventId] = images.length - 1;
+            } else if (currentImageIndex[eventId] >= images.length) {
+                currentImageIndex[eventId] = 0;
+            }
+
+            images[currentImageIndex[eventId]].classList.add('active');
+        }
+
+        // ESCキーでモーダルを閉じる
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 MeltyFroth. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

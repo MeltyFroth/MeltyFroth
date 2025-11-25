@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベント詳細 - MeltyFroth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- BGMコントローラー -->
+    <div class="bgm-controller">
+        <button id="bgm-toggle" class="bgm-button">
+            <span id="bgm-icon">🎵</span>
+        </button>
+        <input type="range" id="volume-slider" min="0" max="100" value="2" class="volume-slider">
+    </div>
+
+    <!-- ヘッダー -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                <img src="images/sections/header.png" alt="MeltyFroth" style="height: 28px; width: auto;">
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">ホーム</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">キャスト一覧</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cast-1.html">1期生</a></li>
+                        <li><a href="cast-2.html">2期生</a></li>
+                        <li><a href="cast-3.html">3期生</a></li>
+                        <li><a href="cast-4.html">4期生</a></li>
+                        <li><a href="cast-5.html">5期生</a></li>
+                    </ul>
+                </li>
+                <li><a href="event.html">イベント詳細</a></li>
+                <li><a href="special-events.html">特別営業</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- イベント詳細コンテンツ -->
+    <section class="event-detail" style="background: url('images/sections/event詳細.jpg') center/cover no-repeat; background-attachment: fixed;">
+        <div class="container">
+            <div class="event-content" style="background: rgba(255, 255, 255, 0.9); padding: 40px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);">
+                <div class="event-section">
+                    <h2>MeltyFrothとは</h2>
+                    <p>当イベント「メルティフロース」は1対1の対話型キャストイベントになっております。</p>
+                </div>
+
+                <div class="event-section">
+                    <h2>開催情報</h2>
+                    <ul class="event-info-list">
+                        <li><strong>開催日時：</strong>不定期土曜日 22:00～</li>
+                        <li><strong>リクイン先：</strong>Momotann彡</li>
+                        <li><strong>21:55～</strong>　リクイン受付（1回まで）</li>
+                        <li><strong>22:00～</strong>　イベント開始（約2時間）</li>
+                        <li><strong>詳しい日程：</strong>公式Twitter参照</li>
+                    </ul>
+                </div>
+
+                <div class="event-section">
+                    <h2>【注意事項】</h2>
+                    <p>当店では以下の行為はご遠慮ください。</p>
+                    <ul class="event-rules">
+                        <li>スタッフの指名</li>
+                        <li>着席後のご移動</li>
+                        <li>キャストへのフレンド申請</li>
+                    </ul>
+                </div>
+
+                <div class="event-section">
+                    <h2>【禁止事項】</h2>
+                    <p>確認次第、スタッフ判断のもとBANさせていただきます</p>
+                    <ul class="event-rules">
+                        <li>NSFW行為</li>
+                        <li>キャストへの過度な接触</li>
+                        <li>視界ジャックや騒音など他のお客様のご迷惑になる行為</li>
+                        <li>その他当店が迷惑と感じた行為</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 MeltyFroth. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
