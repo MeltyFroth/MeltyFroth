@@ -653,7 +653,7 @@ body {
     /* ナビメニューをハンバーガーで制御 */
     .nav-menu {
         position: fixed;
-        top: 60px;
+        top: 100px;
         left: 0;
         width: 100%;
         background: linear-gradient(135deg, var(--white) 0%, var(--light-pink) 100%);
@@ -674,19 +674,19 @@ body {
     }
 
     .hero-subtitle {
-        font-size: 16px;
-        letter-spacing: 0.1em;
+        font-size: 15px;
+        letter-spacing: 0.05em;
         line-height: 1.8;
     }
 
     .hero-overlay {
         padding-top: 40px;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     .hero-image-container {
-        height: 400px;
+        height: 550px;
     }
 
     .image-container {
