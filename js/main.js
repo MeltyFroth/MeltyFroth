@@ -103,6 +103,7 @@ class BGMPlayer {
 class SlideGallery {
     constructor() {
         this.sliderTrack = document.getElementById('slider-track');
+        this.sliderWrapper = document.querySelector('.slider-wrapper');
         this.prevBtn = document.getElementById('prev-slide');
         this.nextBtn = document.getElementById('next-slide');
 
@@ -117,25 +118,41 @@ class SlideGallery {
     }
 
     init() {
-        if (!this.prevBtn || !this.nextBtn) return;
-
-        // ボタンのイベントリスナー
-        this.prevBtn.addEventListener('click', () => this.slidePrev());
-        this.nextBtn.addEventListener('click', () => this.slideNext());
-
         // レスポンシブ対応
         this.updateSlidesToShow();
         window.addEventListener('resize', () => this.updateSlidesToShow());
+
+        // デスクトップ時のボタン操作
+        if (this.prevBtn && this.nextBtn) {
+            this.prevBtn.addEventListener('click', () => this.slidePrev());
+            this.nextBtn.addEventListener('click', () => this.slideNext());
+        }
+
+        // スマホ時のスワイプ対応（ネイティブスクロール）
+        if (this.sliderWrapper && window.innerWidth <= 768) {
+            this.enableNativeScroll();
+        }
+    }
+
+    enableNativeScroll() {
+        // スマホ時はネイティブスクロールを使用
+        // CSSで scroll-snap-type が設定されているので、自動的にスナップする
     }
 
     updateSlidesToShow() {
         // 常に1枚ずつ表示
         this.slidesToShow = 1;
         this.maxIndex = Math.max(0, this.slides.length - this.slidesToShow);
-        this.updateSlider();
+
+        // デスクトップ時のみスライダーを更新
+        if (window.innerWidth > 768) {
+            this.updateSlider();
+        }
     }
 
     slidePrev() {
+        if (window.innerWidth <= 768) return; // スマホ時は無効
+
         if (this.currentIndex > 0) {
             this.currentIndex--;
             this.updateSlider();
@@ -143,6 +160,8 @@ class SlideGallery {
     }
 
     slideNext() {
+        if (window.innerWidth <= 768) return; // スマホ時は無効
+
         if (this.currentIndex < this.maxIndex) {
             this.currentIndex++;
             this.updateSlider();
@@ -150,6 +169,8 @@ class SlideGallery {
     }
 
     updateSlider() {
+        if (window.innerWidth <= 768) return; // スマホ時は無効
+
         const slideWidth = this.slides[0].offsetWidth;
         const offset = -(this.currentIndex * slideWidth);
         this.sliderTrack.style.transform = `translateX(${offset}px)`;
@@ -253,11 +274,14 @@ document.addEventListener('DOMContentLoaded', () => {
             navMenu.classList.toggle('active');
         });
 
-        // メニュー内のリンクをクリックしたら閉じる
+        // メニュー内のリンクをクリックしたら閉じる（キャスト一覧は除く）
         navMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+            link.addEventListener('click', (e) => {
+                // キャスト一覧（dropdown-toggle）の場合は閉じない
+                if (!link.classList.contains('dropdown-toggle')) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
             });
         });
     }

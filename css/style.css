@@ -589,6 +589,18 @@ body {
         flex-direction: column;
         gap: 15px;
         text-align: center;
+        padding: 0;
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu a {
+        display: block;
+        text-align: center;
+        padding: 15px 0;
     }
 
     .dropdown-menu {
@@ -601,8 +613,60 @@ body {
         display: none;
     }
 
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
     .dropdown:hover .dropdown-menu {
         display: block;
+    }
+
+    /* ハンバーガーメニューのスタイル */
+    .hamburger-menu {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .hamburger-menu span {
+        width: 25px;
+        height: 3px;
+        background: var(--primary-pink);
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .hamburger-menu.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .hamburger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-menu.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* ナビメニューをハンバーガーで制御 */
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(135deg, var(--white) 0%, var(--light-pink) 100%);
+        box-shadow: 0 5px 20px var(--shadow);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .nav-menu.active {
+        max-height: 500px;
+        opacity: 1;
     }
 
     .hero-title {
@@ -610,7 +674,29 @@ body {
     }
 
     .hero-subtitle {
-        font-size: 20px;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        line-height: 1.8;
+    }
+
+    .hero-overlay {
+        padding-top: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero-image-container {
+        height: 400px;
+    }
+
+    .image-container {
+        height: auto;
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
     }
 
     .section-title {
@@ -629,10 +715,45 @@ body {
         min-width: 100%;
     }
 
+    /* スライダーボタンを非表示 */
     .slider-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
+        display: none;
+    }
+
+    /* スライダーコンテナを画面いっぱいに */
+    .slider-container {
+        padding: 0;
+        gap: 0;
+    }
+
+    /* スライダーラッパーを画面いっぱいに */
+    .slider-wrapper {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* スライドトラック */
+    .slider-track {
+        display: flex;
+        transition: none;
+    }
+
+    /* 各スライドをスナップ */
+    .slide-item {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+        width: 100%;
+    }
+
+    /* 画像を大きく表示 */
+    .slide-item img {
+        width: 100%;
+        height: auto;
+        max-height: 80vh;
+        object-fit: contain;
     }
 
     .social-links {
@@ -643,6 +764,65 @@ body {
     .bgm-controller {
         bottom: 15px;
         right: 15px;
+        padding: 10px;
+        gap: 8px;
+    }
+
+    .bgm-button {
+        width: 45px;
+        height: 45px;
+        font-size: 18px;
+    }
+
+    .volume-slider {
+        width: 70px;
+        height: 5px;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+        width: 12px;
+        height: 12px;
+    }
+
+    .volume-slider::-moz-range-thumb {
+        width: 12px;
+        height: 12px;
+    }
+
+    /* イベント詳細ページのスマホ対応 */
+    .event-detail {
+        background-attachment: scroll !important;
+        padding: 60px 10px !important;
+    }
+
+    .event-content {
+        padding: 20px !important;
+        border-radius: 15px !important;
+    }
+
+    .event-section {
+        margin-bottom: 30px;
+    }
+
+    .event-section h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .event-section p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .event-info-list li,
+    .event-rules li {
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 8px;
+    }
+
+    .event-info-list strong {
+        font-size: 14px;
     }
 
     /* キャストプロフィールページのレスポンシブ対応 */
