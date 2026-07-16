@@ -500,7 +500,7 @@ body {
 /* キャスト一覧ページ */
 .cast-list-page {
     padding: 80px 20px;
-    background: url('../images/期生背景.jpg') center/cover no-repeat;
+    background: url('../images/期生背景.webp') center/cover no-repeat;
     background-attachment: fixed;
     min-height: 70vh;
 }
