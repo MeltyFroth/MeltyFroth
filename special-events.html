@@ -248,6 +248,16 @@
             <h1 class="page-title" style="color: #E995A5;">～特別営業～</h1>
 
             <div class="event-cards-container">
+                <!-- イベントカード: 2ndアニバーサリー特別営業 -->
+                <div class="event-card" onclick="openModal('2ndanniversary')">
+                    <img loading="lazy" src="images/gallery/special/2026.1.17anniv-cast.webp" alt="2ndアニバーサリー特別営業"
+                        class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2026年1月17日</p>
+                        <h2 class="event-title">2ndアニバーサリー特別営業</h2>
+                    </div>
+                </div>
+
                 <!-- イベントカード: Vketラウンジ3イベント合同営業 -->
                 <div class="event-card" onclick="openModal('vketgoudou')">
                     <img loading="lazy" src="images/gallery/special/2025.12.18vket.webp" alt="Vketラウンジ 3イベント合同営業"
@@ -548,6 +558,30 @@
                 <h2 class="modal-title">青春電脳文化祭</h2>
                 <p class="modal-message">
                     2日間にわたって開催された青春電脳文化祭に参加<br>学校の雰囲気に合わせて、全員でArtemisSailor-grace-を着用して接客<br>たくさんの人が遊びに来てくれて、賑やかで楽しい文化祭となりました
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: 2ndアニバーサリー特別営業 -->
+    <div id="modal-2ndanniversary" class="modal" onclick="closeModal('2ndanniversary')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('2ndanniversary')">×</button>
+
+            <div class="modal-gallery">
+                <img loading="lazy" src="images/gallery/special/2026.1.17anniv-cast.webp" alt="2ndアニバーサリー特別営業" class="active">
+                <img loading="lazy" src="images/gallery/special/2026.1.17anniv-ume.webp" alt="2ndアニバーサリー特別営業">
+                <img loading="lazy" src="images/gallery/special/2026.1.17anniv-ume2.webp" alt="2ndアニバーサリー特別営業">
+                <img loading="lazy" src="images/gallery/special/2026.1.17anniv-momotann.webp" alt="2ndアニバーサリー特別営業">
+                <button class="gallery-nav prev" onclick="changeImage('2ndanniversary', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('2ndanniversary', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2026年1月17日</p>
+                <h2 class="modal-title">2ndアニバーサリー特別営業</h2>
+                <p class="modal-message">
+                    めるふろ2周年を記念して、1：1のデート形式での特別営業を開催<br>キャストと1対1でゆっくり過ごせる、アニバーサリーならではの贅沢な時間をお届けしました<br>2年間の感謝を込めて——3年目のめるふろもよろしくお願いします！
                 </p>
             </div>
         </div>
