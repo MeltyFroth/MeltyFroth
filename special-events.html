@@ -248,6 +248,16 @@
             <h1 class="page-title" style="color: #E995A5;">～特別営業～</h1>
 
             <div class="event-cards-container">
+                <!-- イベントカード: StellaClosetコラボ営業 -->
+                <div class="event-card" onclick="openModal('stellacloset')">
+                    <img loading="lazy" src="images/gallery/special/2026.4.18stella-cast.webp" alt="StellaClosetコラボ営業"
+                        class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2026年4月18日</p>
+                        <h2 class="event-title">StellaClosetコラボ営業</h2>
+                    </div>
+                </div>
+
                 <!-- イベントカード: お花見営業 -->
                 <div class="event-card" onclick="openModal('hanami2026')">
                     <img loading="lazy" src="images/gallery/special/2026.4.4hanami.jpg" alt="お花見営業"
@@ -568,6 +578,28 @@
                 <h2 class="modal-title">青春電脳文化祭</h2>
                 <p class="modal-message">
                     2日間にわたって開催された青春電脳文化祭に参加<br>学校の雰囲気に合わせて、全員でArtemisSailor-grace-を着用して接客<br>たくさんの人が遊びに来てくれて、賑やかで楽しい文化祭となりました
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: StellaClosetコラボ営業 -->
+    <div id="modal-stellacloset" class="modal" onclick="closeModal('stellacloset')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('stellacloset')">×</button>
+
+            <div class="modal-gallery">
+                <img loading="lazy" src="images/gallery/special/2026.4.18stella-cast.webp" alt="StellaClosetコラボ営業" class="active">
+                <img loading="lazy" src="images/gallery/special/2026.4.18stella-after.webp" alt="StellaClosetコラボ営業 アフター">
+                <button class="gallery-nav prev" onclick="changeImage('stellacloset', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('stellacloset', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2026年4月18日</p>
+                <h2 class="modal-title">StellaClosetコラボ営業</h2>
+                <p class="modal-message">
+                    衣装ショップ「StellaCloset」さんとのコラボ営業を開催<br>キャストが新作衣装「♡LuminousLily♡」を身にまとい、お揃いの装いでおもてなし<br>この日だけの特別なめるふろを、たくさんの方に楽しんでいただきました
                 </p>
             </div>
         </div>
