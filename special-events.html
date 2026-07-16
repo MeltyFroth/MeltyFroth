@@ -248,6 +248,16 @@
             <h1 class="page-title" style="color: #E995A5;">～特別営業～</h1>
 
             <div class="event-cards-container">
+                <!-- イベントカード: Vketラウンジ3イベント合同営業 -->
+                <div class="event-card" onclick="openModal('vketgoudou')">
+                    <img loading="lazy" src="images/gallery/special/2025.12.18vket.webp" alt="Vketラウンジ 3イベント合同営業"
+                        class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2025年12月18日</p>
+                        <h2 class="event-title">Vketラウンジ 3イベント合同営業</h2>
+                    </div>
+                </div>
+
                 <!-- イベントカード: Vketラウンジプレオープン営業 -->
                 <div class="event-card" onclick="openModal('vketlounge')">
                     <img loading="lazy" src="images/gallery/special/2025.11.15cast.webp" alt="Vketラウンジプレオープン営業"
@@ -538,6 +548,27 @@
                 <h2 class="modal-title">青春電脳文化祭</h2>
                 <p class="modal-message">
                     2日間にわたって開催された青春電脳文化祭に参加<br>学校の雰囲気に合わせて、全員でArtemisSailor-grace-を着用して接客<br>たくさんの人が遊びに来てくれて、賑やかで楽しい文化祭となりました
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: Vketラウンジ3イベント合同営業 -->
+    <div id="modal-vketgoudou" class="modal" onclick="closeModal('vketgoudou')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('vketgoudou')">×</button>
+
+            <div class="modal-gallery">
+                <img loading="lazy" src="images/gallery/special/2025.12.18vket.webp" alt="Vketラウンジ 3イベント合同営業" class="active">
+                <button class="gallery-nav prev" onclick="changeImage('vketgoudou', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('vketgoudou', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2025年12月18日</p>
+                <h2 class="modal-title">Vketラウンジ 3イベント合同営業</h2>
+                <p class="modal-message">
+                    みるふぃ～ゆさん、アルモニアさんとの3イベント合同でVketラウンジ営業を開催<br>「ぶいけっとらうんじ」の空間に3イベントのキャストが大集合し、Grope+での特別な一夜に<br>それぞれのイベントの色が混ざり合う、にぎやかで華やかな合同営業となりました
                 </p>
             </div>
         </div>
