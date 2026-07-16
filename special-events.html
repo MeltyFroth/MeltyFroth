@@ -248,6 +248,16 @@
             <h1 class="page-title" style="color: #E995A5;">～特別営業～</h1>
 
             <div class="event-cards-container">
+                <!-- イベントカード: 浴衣de納涼会 -->
+                <div class="event-card" onclick="openModal('noryokai')">
+                    <img loading="lazy" src="images/gallery/special/2026.7.11kimonowa.webp" alt="浴衣de納涼会"
+                        class="event-card-image">
+                    <div class="event-card-content">
+                        <p class="event-date">2026年7月11日</p>
+                        <h2 class="event-title">浴衣de納涼会</h2>
+                    </div>
+                </div>
+
                 <!-- イベントカード: StellaClosetコラボ営業 -->
                 <div class="event-card" onclick="openModal('stellacloset')">
                     <img loading="lazy" src="images/gallery/special/2026.4.18stella-cast.webp" alt="StellaClosetコラボ営業"
@@ -578,6 +588,28 @@
                 <h2 class="modal-title">青春電脳文化祭</h2>
                 <p class="modal-message">
                     2日間にわたって開催された青春電脳文化祭に参加<br>学校の雰囲気に合わせて、全員でArtemisSailor-grace-を着用して接客<br>たくさんの人が遊びに来てくれて、賑やかで楽しい文化祭となりました
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- モーダル: 浴衣de納涼会 -->
+    <div id="modal-noryokai" class="modal" onclick="closeModal('noryokai')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal('noryokai')">×</button>
+
+            <div class="modal-gallery">
+                <img loading="lazy" src="images/gallery/special/2026.7.11kimonowa.webp" alt="浴衣de納涼会" class="active">
+                <img loading="lazy" src="images/gallery/special/2026.7.11kimonowa-poster.webp" alt="浴衣de納涼会 告知">
+                <button class="gallery-nav prev" onclick="changeImage('noryokai', -1)">‹</button>
+                <button class="gallery-nav next" onclick="changeImage('noryokai', 1)">›</button>
+            </div>
+
+            <div class="modal-body">
+                <p class="modal-date">2026年7月11日</p>
+                <h2 class="modal-title">浴衣de納涼会</h2>
+                <p class="modal-message">
+                    kimonowa様主催の「浴衣de納涼会」に参加しての特別営業<br>キャストが思い思いの浴衣に身を包み、夏の夜の風情あふれるひとときをお届けしました<br>色とりどりの浴衣姿が揃う、眼福な夏の一夜となりました
                 </p>
             </div>
         </div>
